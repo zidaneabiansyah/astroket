@@ -1,0 +1,436 @@
+---
+import AnimatedText from './AnimatedText.astro';
+
+const rotatingWords = [
+  'experiences',
+  'possibilities', 
+  'solutions',
+  'innovation',
+  'results',
+  'excellence'
+];
+---
+
+<section class="hero" id="hero">
+  <div class="hero-background"></div>
+  
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-greeting">Hi there! 👋</p>
+        <h1 class="hero-title">
+          Turning ideas into
+        </h1>
+        <div class="hero-animated">
+          <AnimatedText words={rotatingWords} />
+        </div>
+        <p class="hero-description">
+          I'm a <strong>FullStack Web Developer</strong> passionate about creating 
+          impactful digital experiences that captivate users and drive business growth.
+          Specialized in modern web technologies and scalable solutions.
+        </p>
+        
+        <div class="hero-cta">
+          <a href="/portfolio" class="btn btn-primary">
+            View My Work
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.16669 10H15.8334M15.8334 10L10 4.16669M15.8334 10L10 15.8334" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="/contact" class="btn btn-secondary">
+            Get In Touch
+          </a>
+        </div>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" data-target="50">0</span>
+            <span class="stat-label">Projects Completed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="3">0</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="100">0</span>
+            <span class="stat-label">Client Satisfaction</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="visual-card card-1">
+          <div class="card-content">
+            <span class="card-icon">💻</span>
+            <span class="card-text">Frontend</span>
+          </div>
+        </div>
+        <div class="visual-card card-2">
+          <div class="card-content">
+            <span class="card-icon">⚙️</span>
+            <span class="card-text">Backend</span>
+          </div>
+        </div>
+        <div class="visual-card card-3">
+          <div class="card-content">
+            <span class="card-icon">🎨</span>
+            <span class="card-text">UI/UX</span>
+          </div>
+        </div>
+        <div class="visual-card card-4">
+          <div class="card-content">
+            <span class="card-icon">🚀</span>
+            <span class="card-text">DevOps</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="scroll-indicator">
+    <span class="scroll-text">Scroll Down</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: calc(70px + var(--spacing-2xl)) 0 var(--spacing-2xl);
+    overflow: hidden;
+  }
+  
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(50, 69, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(188, 82, 238, 0.1) 0%, transparent 50%);
+    z-index: -1;
+  }
+  
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+  }
+  
+  .hero-text {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  .hero-greeting {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+  }
+  
+  .hero-title {
+    font-size: var(--font-size-6xl);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text);
+  }
+  
+  .hero-animated {
+    font-size: var(--font-size-6xl);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .hero-description {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+  }
+  
+  .hero-description strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  
+  .hero-cta {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+    flex-wrap: wrap;
+  }
+  
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .stat-number {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .stat-number::after {
+    content: '+';
+  }
+  
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+  
+  /* Visual Cards */
+  .hero-visual {
+    position: relative;
+    height: 500px;
+    opacity: 0;
+  }
+  
+  .visual-card {
+    position: absolute;
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-border-light);
+    transition: all var(--transition-base);
+  }
+  
+  .visual-card:hover {
+    transform: translateY(-10px) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+  }
+  
+  .card-text {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  
+  .card-1 {
+    top: 50px;
+    left: 50px;
+    width: 150px;
+  }
+  
+  .card-2 {
+    top: 50px;
+    right: 50px;
+    width: 150px;
+  }
+  
+  .card-3 {
+    bottom: 100px;
+    left: 50px;
+    width: 150px;
+  }
+  
+  .card-4 {
+    bottom: 100px;
+    right: 50px;
+    width: 150px;
+  }
+  
+  /* Scroll Indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--spacing-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    opacity: 0.6;
+    animation: bounce 2s infinite;
+  }
+  
+  .scroll-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+  
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--color-text-secondary);
+    border-bottom: 2px solid var(--color-text-secondary);
+    transform: rotate(45deg);
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 968px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+    
+    .hero-visual {
+      height: 400px;
+    }
+    
+    .visual-card {
+      width: 120px !important;
+      padding: var(--spacing-md);
+    }
+    
+    .card-icon {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding: calc(70px + var(--spacing-xl)) 0 var(--spacing-xl);
+    }
+    
+    .hero-title,
+    .hero-animated {
+      font-size: var(--font-size-4xl);
+    }
+    
+    .hero-description {
+      font-size: var(--font-size-base);
+    }
+    
+    .hero-stats {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .hero-visual {
+      display: none;
+    }
+    
+    .scroll-indicator {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  
+  document.addEventListener('astro:page-load', () => {
+    // Animate hero text
+    gsap.to('.hero-text', {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out',
+      delay: 0.2
+    });
+    
+    // Animate visual cards
+    gsap.to('.hero-visual', {
+      opacity: 1,
+      duration: 0.8,
+      delay: 0.5
+    });
+    
+    gsap.to('.visual-card', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'back.out(1.7)',
+      delay: 0.7
+    });
+    
+    // Floating animation for cards
+    gsap.to('.card-1', {
+      y: -20,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+    
+    gsap.to('.card-2', {
+      y: -15,
+      duration: 2.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 0.2
+    });
+    
+    gsap.to('.card-3', {
+      y: -18,
+      duration: 2.2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 0.4
+    });
+    
+    gsap.to('.card-4', {
+      y: -22,
+      duration: 2.8,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 0.6
+    });
+    
+    // Counter animation
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target') || '0');
+      const duration = 2000;
+      const increment = target / (duration / 16);
+      let current = 0;
+      
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          counter.textContent = Math.floor(current).toString();
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = target.toString();
+        }
+      };
+      
+      setTimeout(updateCounter, 1000);
+    });
+  });
+</script>

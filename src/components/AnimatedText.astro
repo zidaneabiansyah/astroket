@@ -1,0 +1,110 @@
+---
+interface Props {
+  words: string[];
+  prefix?: string;
+}
+
+const { words, prefix = '' } = Astro.props;
+---
+
+<div class="animated-text-wrapper">
+  <span class="prefix">{prefix}</span>
+  <span class="animated-text" data-words={JSON.stringify(words)}>
+    <span class="word">{words[0]}</span>
+  </span>
+</div>
+
+<style>
+  .animated-text-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .prefix {
+    display: inline-block;
+  }
+  
+  .animated-text {
+    position: relative;
+    display: inline-block;
+    min-width: 200px;
+  }
+  
+  .word {
+    display: inline-block;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    position: relative;
+  }
+  
+  @media (max-width: 768px) {
+    .animated-text {
+      min-width: 150px;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  
+  document.addEventListener('astro:page-load', () => {
+    const animatedTextElements = document.querySelectorAll('.animated-text');
+    
+    animatedTextElements.forEach((element) => {
+      const wordsData = element.getAttribute('data-words');
+      if (!wordsData) return;
+      
+      const words: string[] = JSON.parse(wordsData);
+      const wordElement = element.querySelector('.word') as HTMLElement | null;
+      if (!wordElement) return;
+      
+      let currentIndex = 0;
+      
+      function animateWord() {
+        if (!wordElement) return;
+        
+        const nextIndex = (currentIndex + 1) % words.length;
+        const nextWord = words[nextIndex];
+        
+        // Animate out current word
+        gsap.to(wordElement, {
+          opacity: 0,
+          y: -20,
+          duration: 0.5,
+          ease: 'power2.in',
+          onComplete: () => {
+            if (!wordElement) return;
+            
+            // Change text
+            wordElement.textContent = nextWord;
+            
+            // Animate in new word
+            gsap.fromTo(wordElement,
+              { opacity: 0, y: 20 },
+              { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.5,
+                ease: 'power2.out'
+              }
+            );
+            
+            currentIndex = nextIndex;
+          }
+        });
+      }
+      
+      // Start animation loop
+      const interval = setInterval(animateWord, 3000);
+      
+      // Cleanup on page unload
+      document.addEventListener('astro:before-preparation', () => {
+        clearInterval(interval);
+      }, { once: true });
+    });
+  });
+</script>
