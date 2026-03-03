@@ -1,0 +1,261 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Portfolio", path: "/portfolio" },
+  { name: "Contact", path: "/contact" },
+];
+---
+
+<header class="header" id="header">
+  <nav class="nav container">
+    <a href="/" class="logo">
+      <span class="logo-text"
+        >&lt;Dev<span class="text-gradient">Portfolio</span>/&gt;</span
+      >
+    </a>
+
+    <ul class="nav-menu" id="nav-menu">
+      {
+        navItems.map((item) => (
+          <li class="nav-item">
+            <a
+              href={item.path}
+              class={`nav-link ${currentPath === item.path ? "active" : ""}`}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border-light);
+    z-index: 1000;
+    transition: all var(--transition-base);
+  }
+
+  .header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-md);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem var(--container-padding);
+    max-height: 70px;
+  }
+
+  .logo {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: transform var(--transition-base);
+  }
+
+  .logo:hover {
+    transform: scale(1.05);
+  }
+
+  .logo-text {
+    font-family: var(--font-mono);
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: var(--font-size-base);
+    padding: 0.5rem 0;
+    transition: color var(--transition-base);
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width var(--transition-base);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-primary);
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    width: 25px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: all var(--transition-base);
+  }
+
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+  }
+
+  .hamburger::before {
+    top: -8px;
+  }
+
+  .hamburger::after {
+    top: 8px;
+  }
+
+  /* Mobile Menu */
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      width: 70%;
+      max-width: 300px;
+      height: calc(100vh - 70px);
+      background: var(--color-bg);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 2rem;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-xl);
+      transition: right var(--transition-slow);
+    }
+
+    .nav-menu.active {
+      right: 0;
+    }
+
+    .nav-link {
+      font-size: var(--font-size-lg);
+    }
+
+    /* Hamburger Animation */
+    .nav-toggle.active .hamburger {
+      background: transparent;
+    }
+
+    .nav-toggle.active .hamburger::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle.active .hamburger::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>
+
+<script>
+  // Header scroll effect
+  const header = document.getElementById("header");
+  const navToggle = document.getElementById("nav-toggle");
+  const navMenu = document.getElementById("nav-menu");
+
+  // Scroll effect
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      header?.classList.add("scrolled");
+    } else {
+      header?.classList.remove("scrolled");
+    }
+  });
+
+  // Mobile menu toggle
+  navToggle?.addEventListener("click", () => {
+    navMenu?.classList.toggle("active");
+    navToggle?.classList.toggle("active");
+  });
+
+  // Close menu when clicking nav link
+  const navLinks = document.querySelectorAll(".nav-link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navMenu?.classList.remove("active");
+      navToggle?.classList.remove("active");
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest(".nav-menu") && !target.closest(".nav-toggle")) {
+      navMenu?.classList.remove("active");
+      navToggle?.classList.remove("active");
+    }
+  });
+</script>

@@ -1,0 +1,241 @@
+---
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { name: 'GitHub', url: 'https://github.com/yourusername', icon: 'github' },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/yourusername', icon: 'linkedin' },
+  { name: 'Twitter', url: 'https://twitter.com/yourusername', icon: 'twitter' },
+  { name: 'Email', url: 'mailto:your.email@example.com', icon: 'email' },
+];
+
+const quickLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  { name: 'Portfolio', path: '/portfolio' },
+  { name: 'Contact', path: '/contact' },
+];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <!-- Brand Section -->
+      <div class="footer-section">
+        <a href="/" class="footer-logo">
+          <span class="logo-text">&lt;Dev<span class="text-gradient">Portfolio</span>/&gt;</span>
+        </a>
+        <p class="footer-description">
+          Building digital experiences with modern technologies. 
+          Let's create something amazing together.
+        </p>
+      </div>
+      
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h3 class="footer-title">Quick Links</h3>
+        <ul class="footer-links">
+          {quickLinks.map((link) => (
+            <li>
+              <a href={link.path} class="footer-link">{link.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <!-- Social Links -->
+      <div class="footer-section">
+        <h3 class="footer-title">Connect</h3>
+        <div class="social-links">
+          {socialLinks.map((social) => (
+            <a 
+              href={social.url} 
+              class="social-link" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label={social.name}
+            >
+              <span class="social-icon" data-icon={social.icon}></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p class="copyright">
+        © {currentYear} DevPortfolio. Built with <span class="heart">♥</span> using Astro
+      </p>
+      <p class="footer-note">
+        Designed & Developed by <span class="text-gradient">You</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-bg-dark);
+    color: var(--color-text-white);
+    padding: var(--spacing-3xl) 0 var(--spacing-lg);
+    margin-top: var(--spacing-3xl);
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-2xl);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .footer-logo {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--color-text-white);
+    text-decoration: none;
+    margin-bottom: var(--spacing-sm);
+    display: inline-block;
+  }
+  
+  .footer-description {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 350px;
+  }
+  
+  .footer-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-white);
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    display: inline-block;
+  }
+  
+  .footer-link:hover {
+    color: var(--color-text-white);
+    transform: translateX(5px);
+  }
+  
+  .social-links {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+  
+  .social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--color-text-white);
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+  
+  .social-link:hover {
+    background: var(--gradient-primary);
+    transform: translateY(-3px);
+  }
+  
+  .social-icon {
+    font-size: var(--font-size-lg);
+  }
+  
+  /* Simple icon representation */
+  .social-icon::before {
+    content: '→';
+  }
+  
+  .social-icon[data-icon="github"]::before {
+    content: 'GH';
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+  
+  .social-icon[data-icon="linkedin"]::before {
+    content: 'IN';
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+  
+  .social-icon[data-icon="twitter"]::before {
+    content: '𝕏';
+    font-size: var(--font-size-base);
+  }
+  
+  .social-icon[data-icon="email"]::before {
+    content: '✉';
+    font-size: var(--font-size-base);
+  }
+  
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+  
+  .copyright,
+  .footer-note {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+  
+  .heart {
+    color: #ff4757;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer {
+      padding: var(--spacing-2xl) 0 var(--spacing-md);
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: var(--spacing-sm);
+    }
+  }
+</style>
