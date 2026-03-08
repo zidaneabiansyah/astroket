@@ -1,0 +1,333 @@
+---
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  avatar: string;
+  rating: number;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    id: 'testimonial-1',
+    name: 'Sarah Johnson',
+    role: 'Product Manager',
+    company: 'TechStartup Inc',
+    quote: 'Working with them was a game-changer for our project. They delivered an exceptional web application ahead of schedule with incredible attention to detail.',
+    avatar: '👩‍💼',
+    rating: 5
+  },
+  {
+    id: 'testimonial-2',
+    name: 'Mike Chen',
+    role: 'Founder & CEO',
+    company: 'Digital Solutions Co',
+    quote: 'Professional, reliable, and innovative. They understood our vision and transformed it into a beautiful, functional product that exceeded our expectations.',
+    avatar: '👨‍💼',
+    rating: 5
+  },
+  {
+    id: 'testimonial-3',
+    name: 'Emily Rodriguez',
+    role: 'Marketing Director',
+    company: 'Creative Agency',
+    quote: 'Not just a developer, but a true partner in our project. Great communication, problem-solving skills, and a passion for clean code.',
+    avatar: '👩‍🎨',
+    rating: 5
+  }
+];
+---
+
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">What Clients Say</h2>
+      <p class="section-subtitle">Real feedback from people I've worked with</p>
+    </div>
+
+    <div class="testimonials-wrapper">
+      <div class="testimonials-carousel">
+        {testimonials.map((testimonial, index) => (
+          <div class="testimonial-card" data-testimonial-index={index}>
+            <div class="testimonial-header">
+              <div class="avatar">{testimonial.avatar}</div>
+              <div class="client-info">
+                <h4 class="client-name">{testimonial.name}</h4>
+                <p class="client-role">{testimonial.role}</p>
+                <p class="client-company">{testimonial.company}</p>
+              </div>
+            </div>
+
+            <div class="rating">
+              {Array.from({ length: testimonial.rating }).map(() => (
+                <span class="star">⭐</span>
+              ))}
+            </div>
+
+            <p class="quote">"{testimonial.quote}"</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn carousel-prev" aria-label="Previous testimonial">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="carousel-dots">
+          {testimonials.map((_, index) => (
+            <button class={`dot ${index === 0 ? 'active' : ''}`} aria-label={`Go to testimonial ${index + 1}`} data-index={index}></button>
+          ))}
+        </div>
+        <button class="carousel-btn carousel-next" aria-label="Next testimonial">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background: linear-gradient(135deg, rgba(188, 82, 238, 0.03) 0%, rgba(50, 69, 255, 0.03) 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .testimonials-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .testimonials-carousel {
+    display: flex;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    gap: 0;
+  }
+
+  .testimonial-card {
+    flex: 0 0 100%;
+    padding: var(--spacing-2xl);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.8s ease;
+    transform: translateX(0);
+  }
+
+  .testimonial-card.hidden {
+    transform: translateX(100%);
+    pointer-events: none;
+  }
+
+  .testimonial-card.prev {
+    transform: translateX(-100%);
+    pointer-events: none;
+  }
+
+  .testimonial-header {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    align-items: flex-start;
+  }
+
+  .avatar {
+    font-size: var(--font-size-5xl);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(50, 69, 255, 0.1) 0%, rgba(188, 82, 238, 0.1) 100%);
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
+
+  .client-info {
+    flex: 1;
+  }
+
+  .client-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 4px 0;
+  }
+
+  .client-role {
+    font-size: var(--font-size-sm);
+    color: var(--color-primary);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .client-company {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin: 2px 0 0 0;
+  }
+
+  .rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .star {
+    font-size: var(--font-size-lg);
+  }
+
+  .quote {
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+    color: var(--color-text);
+    margin: 0;
+    font-style: italic;
+    flex: 1;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-2xl);
+  }
+
+  .carousel-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    transition: all var(--transition-base);
+  }
+
+  .carousel-btn:hover {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-border);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+
+  .dot.active {
+    background: var(--color-primary);
+    width: 28px;
+    border-radius: var(--radius-full);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .testimonial-card {
+      padding: var(--spacing-lg);
+    }
+
+    .testimonial-header {
+      gap: var(--spacing-md);
+    }
+
+    .quote {
+      font-size: var(--font-size-base);
+    }
+  }
+</style>
+
+<script>
+  let currentIndex = 0;
+  const cards = document.querySelectorAll('.testimonial-card');
+  const dots = document.querySelectorAll('.dot');
+  const prevBtn = document.querySelector('.carousel-prev');
+  const nextBtn = document.querySelector('.carousel-next');
+
+  function updateCarousel() {
+    cards.forEach((card, index) => {
+      card.classList.remove('active', 'prev', 'hidden');
+      if (index === currentIndex) {
+        card.classList.add('active');
+      } else if (index < currentIndex) {
+        card.classList.add('prev');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    updateCarousel();
+  }
+
+  prevBtn?.addEventListener('click', prevSlide);
+  nextBtn?.addEventListener('click', nextSlide);
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateCarousel();
+    });
+  });
+
+  // Auto rotate testimonials
+  setInterval(nextSlide, 8000);
+</script>
