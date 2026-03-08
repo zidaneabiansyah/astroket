@@ -1,0 +1,225 @@
+---
+import { personalInterests } from '../data/about';
+
+const interests = personalInterests;
+---
+
+<section class="personal-info section" id="personal">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Beyond Code</h2>
+      <p class="section-subtitle">My interests and hobbies that make me more human</p>
+    </div>
+
+    <div class="interests-grid">
+      {interests.map((interest, index) => (
+        <div class="interest-card" data-index={index}>
+          <div class="interest-icon">{interest.emoji}</div>
+          <h3 class="interest-title">{interest.title}</h3>
+          <p class="interest-description">{interest.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="personal-stats">
+      <div class="stat-box">
+        <div class="stat-icon">✈️</div>
+        <div class="stat-content">
+          <h4>Countries Visited</h4>
+          <p>10+</p>
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">🎮</div>
+        <div class="stat-content">
+          <h4>Games Played</h4>
+          <p>50+</p>
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">📚</div>
+        <div class="stat-content">
+          <h4>Books Read</h4>
+          <p>30+</p>
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">📸</div>
+        <div class="stat-content">
+          <h4>Photos Taken</h4>
+          <p>5000+</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .personal-info {
+    background: var(--color-bg-secondary);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .interest-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-2xl);
+    text-align: center;
+    transition: all var(--transition-base);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .interest-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(50, 69, 255, 0.15);
+  }
+
+  .interest-icon {
+    font-size: var(--font-size-5xl);
+    margin-bottom: var(--spacing-lg);
+    display: inline-block;
+    transition: transform var(--transition-base);
+  }
+
+  .interest-card:hover .interest-icon {
+    transform: scale(1.2) rotate(10deg);
+  }
+
+  .interest-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--color-text);
+  }
+
+  .interest-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .personal-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-2xl);
+    background: var(--color-bg);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .stat-box {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+  }
+
+  .stat-box:hover {
+    border: 1px solid var(--color-primary);
+    background: linear-gradient(135deg, rgba(50, 69, 255, 0.05) 0%, rgba(188, 82, 238, 0.05) 100%);
+  }
+
+  .stat-icon {
+    font-size: var(--font-size-4xl);
+  }
+
+  .stat-content h4 {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-content p {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    margin: 0;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .interests-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .personal-stats {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = document.querySelectorAll('.interest-card');
+
+  cards.forEach((card, index) => {
+    gsap.fromTo(
+      card,
+      {
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+  });
+</script>

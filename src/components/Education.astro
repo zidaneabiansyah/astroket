@@ -1,0 +1,207 @@
+---
+import { educationData } from '../data/about';
+
+const education = educationData;
+---
+
+<section class="education section" id="education">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Education & Certifications</h2>
+      <p class="section-subtitle">Formal education and professional development</p>
+    </div>
+
+    <div class="education-grid">
+      {education.map((item, index) => {
+        const isDegree = item.id.startsWith('edu');
+        return (
+          <div class={`education-card ${isDegree ? 'degree-card' : 'cert-card'}`} data-index={index}>
+            <div class="card-type-badge">
+              {isDegree ? '🎓 Degree' : '📜 Certificate'}
+            </div>
+
+            <h3 class="edu-institution">{item.institution}</h3>
+            <p class="edu-degree">{item.degree}</p>
+            <p class="edu-field">{item.field}</p>
+
+            {item.description && (
+              <p class="edu-description">{item.description}</p>
+            )}
+
+            <div class="edu-year">{item.year}</div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .education {
+    background: linear-gradient(135deg, rgba(188, 82, 238, 0.03) 0%, rgba(50, 69, 255, 0.03) 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .education-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-2xl);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .education-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+  }
+
+  .degree-card::before {
+    background: linear-gradient(90deg, #3245ff, #2435cc);
+  }
+
+  .cert-card::before {
+    background: linear-gradient(90deg, #bc52ee, #f041ff);
+  }
+
+  .education-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--color-primary);
+    box-shadow: 0 20px 40px rgba(50, 69, 255, 0.15);
+  }
+
+  .card-type-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background: rgba(50, 69, 255, 0.1);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .cert-card .card-type-badge {
+    background: rgba(188, 82, 238, 0.1);
+    color: var(--color-secondary);
+  }
+
+  .edu-institution {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-sm) 0;
+  }
+
+  .edu-degree {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0 0 var(--spacing-sm) 0;
+  }
+
+  .cert-card .edu-degree {
+    color: var(--color-secondary);
+  }
+
+  .edu-field {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-md) 0;
+    font-weight: 500;
+  }
+
+  .edu-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0 0 var(--spacing-lg) 0;
+  }
+
+  .edu-year {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-top: auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .education-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = document.querySelectorAll('.education-card');
+
+  cards.forEach((card, index) => {
+    gsap.fromTo(
+      card,
+      {
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+  });
+</script>

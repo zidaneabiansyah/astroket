@@ -1,0 +1,215 @@
+---
+---
+
+<section class="story section" id="story">
+  <div class="container">
+    <div class="story-content">
+      <div class="story-text">
+        <h2 class="section-title">My Journey</h2>
+        
+        <div class="story-paragraphs">
+          <p class="story-paragraph">
+            I started my journey into web development back in 2018, initially as a hobby while studying Computer Science. 
+            I was fascinated by how the internet worked and wanted to create something that could impact people's lives. 
+            That curiosity turned into a passion, and I decided to dedicate my career to building amazing digital experiences.
+          </p>
+
+          <p class="story-paragraph">
+            Over the past 3+ years, I've worked with various companies and startups, learning from some incredibly talented developers. 
+            Each project taught me something new—whether it's about clean code, user experience, or how to effectively communicate with non-technical stakeholders. 
+            I've made mistakes, learned from them, and become a better developer because of it.
+          </p>
+
+          <p class="story-paragraph">
+            Today, I'm passionate about helping businesses and startups turn their ideas into reality through technology. 
+            I believe in writing clean, maintainable code and creating user experiences that are not just functional, but delightful. 
+            My goal is to keep learning, growing, and contributing to projects that make a difference.
+          </p>
+        </div>
+
+        <div class="story-highlights">
+          <div class="highlight-item">
+            <span class="highlight-icon">🎯</span>
+            <div>
+              <h4>My Mission</h4>
+              <p>Create digital solutions that solve real problems and improve people's lives</p>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <span class="highlight-icon">💡</span>
+            <div>
+              <h4>My Approach</h4>
+              <p>Combine technical excellence with user-centric design and clear communication</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-image">
+        <div class="story-image-placeholder">📖</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    background: var(--color-bg-secondary);
+  }
+
+  .story-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+  }
+
+  .story-text {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .section-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-2xl);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .story-paragraphs {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .story-paragraph {
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .story-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .highlight-item {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+  }
+
+  .highlight-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 30px rgba(50, 69, 255, 0.1);
+  }
+
+  .highlight-icon {
+    font-size: var(--font-size-4xl);
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .highlight-item h4 {
+    font-size: var(--font-size-lg);
+    margin: 0 0 4px 0;
+    color: var(--color-text);
+  }
+
+  .highlight-item p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .story-image {
+    opacity: 0;
+    transform: translateX(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-image-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(50, 69, 255, 0.1) 0%, rgba(188, 82, 238, 0.1) 100%);
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .story-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+
+    .section-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .story-paragraph {
+      font-size: var(--font-size-base);
+    }
+
+    .story-image-placeholder {
+      font-size: 60px;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const textElement = document.querySelector('.story-text');
+  const imageElement = document.querySelector('.story-image');
+
+  if (textElement && imageElement) {
+    gsap.fromTo(
+      textElement,
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: textElement,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      imageElement,
+      { opacity: 0, x: 20 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: imageElement,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+  }
+</script>

@@ -1,0 +1,211 @@
+---
+---
+
+<section class="about-hero section" id="about-hero">
+  <div class="container">
+    <div class="about-hero-content">
+      <div class="about-hero-text">
+        <p class="about-greeting">About Me</p>
+        <h1 class="about-title">I'm a Full Stack Developer Based in Indonesia</h1>
+        <p class="about-tagline">
+          Passionate about creating beautiful, functional digital experiences. 
+          3+ years of professional experience building web applications that users love.
+        </p>
+        <div class="about-cta">
+          <a href="/contact" class="btn btn-primary">Let's Work Together</a>
+        </div>
+      </div>
+
+      <div class="about-hero-visual">
+        <div class="avatar-container">
+          <div class="avatar-placeholder">👨‍💻</div>
+          <div class="avatar-badge">Available for Hire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-hero {
+    padding-top: calc(var(--spacing-3xl) + 70px);
+    background: linear-gradient(135deg, rgba(50, 69, 255, 0.03) 0%, rgba(188, 82, 238, 0.03) 100%);
+  }
+
+  .about-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+    align-items: center;
+    min-height: 500px;
+  }
+
+  .about-hero-text {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .about-greeting {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .about-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+  }
+
+  .about-tagline {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-lg);
+    max-width: 500px;
+  }
+
+  .about-cta {
+    display: flex;
+    gap: var(--spacing-md);
+  }
+
+  .about-hero-visual {
+    opacity: 0;
+    transform: translateX(30px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(50, 69, 255, 0.1) 0%, rgba(188, 82, 238, 0.1) 100%);
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(
+      from 0deg,
+      #3245ff,
+      #bc52ee,
+      #f041ff,
+      #3245ff
+    );
+    animation: spin 8s linear infinite;
+  }
+
+  .avatar-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: var(--color-bg);
+    border-radius: calc(var(--radius-2xl) - 2px);
+    z-index: 1;
+  }
+
+  .avatar-placeholder {
+    z-index: 2;
+  }
+
+  .avatar-badge {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+      min-height: auto;
+    }
+
+    .about-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .avatar-container {
+      width: 250px;
+      height: 250px;
+    }
+
+    .avatar-placeholder {
+      font-size: 80px;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const textElement = document.querySelector('.about-hero-text');
+  const visualElement = document.querySelector('.about-hero-visual');
+
+  if (textElement && visualElement) {
+    gsap.to(textElement, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      delay: 0.2,
+    });
+
+    gsap.to(visualElement, {
+      opacity: 1,
+      x: 0,
+      duration: 0.8,
+      delay: 0.4,
+    });
+  }
+</script>

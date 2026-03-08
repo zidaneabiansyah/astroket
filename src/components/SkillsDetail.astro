@@ -1,0 +1,343 @@
+---
+import { skillsData } from '../data/skills';
+
+const skills = skillsData;
+---
+
+<section class="skills-detail section" id="skills-detail">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Detailed Skills & Proficiency</h2>
+      <p class="section-subtitle">Experience level with various technologies and tools</p>
+    </div>
+
+    <div class="skills-detail-grid">
+      {skills.map((category) => (
+        <div class="skill-category-card" data-category={category.category}>
+          <div class="category-header">
+            <h3 class="category-name">{category.category}</h3>
+          </div>
+
+          <div class="detailed-skills">
+            {category.skills.map((skill, index) => (
+              <div class="detailed-skill-item" data-skill-index={index}>
+                <div class="skill-header">
+                  <div class="skill-label">
+                    <span class="skill-icon">{skill.icon}</span>
+                    <span class="skill-title">{skill.name}</span>
+                  </div>
+                  <span class="proficiency-badge">{skill.proficiency}%</span>
+                </div>
+
+                <div class="proficiency-bar">
+                  <div 
+                    class="proficiency-fill" 
+                    style={`--final-width: ${skill.proficiency}%`}
+                  ></div>
+                </div>
+
+                <div class="skill-description">
+                  {skill.proficiency >= 90 && <span class="skill-level expert">Expert</span>}
+                  {skill.proficiency >= 80 && skill.proficiency < 90 && <span class="skill-level advanced">Advanced</span>}
+                  {skill.proficiency >= 70 && skill.proficiency < 80 && <span class="skill-level intermediate">Intermediate</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="skills-summary">
+      <div class="summary-item">
+        <h4>Total Technologies</h4>
+        <p class="summary-value">24+</p>
+      </div>
+      <div class="summary-item">
+        <h4>Years of Experience</h4>
+        <p class="summary-value">3+</p>
+      </div>
+      <div class="summary-item">
+        <h4>Expert Level</h4>
+        <p class="summary-value">8</p>
+      </div>
+      <div class="summary-item">
+        <h4>Currently Learning</h4>
+        <p class="summary-value">Rust, WebGL</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-detail {
+    background: linear-gradient(135deg, rgba(50, 69, 255, 0.03) 0%, rgba(188, 82, 238, 0.03) 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .skills-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
+  }
+
+  .skill-category-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--spacing-2xl);
+    transition: all var(--transition-base);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .skill-category-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 20px 40px rgba(50, 69, 255, 0.1);
+    transform: translateY(-8px);
+  }
+
+  .category-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .category-name {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin: 0;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .detailed-skills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .detailed-skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .skill-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .skill-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .skill-icon {
+    font-size: var(--font-size-2xl);
+  }
+
+  .skill-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .proficiency-badge {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+    background: rgba(50, 69, 255, 0.1);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+  }
+
+  .proficiency-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .proficiency-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .skill-description {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .skill-level {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .skill-level.expert {
+    background: rgba(50, 69, 255, 0.2);
+    color: var(--color-primary);
+  }
+
+  .skill-level.advanced {
+    background: rgba(188, 82, 238, 0.2);
+    color: var(--color-secondary);
+  }
+
+  .skill-level.intermediate {
+    background: rgba(240, 65, 255, 0.2);
+    color: #f041ff;
+  }
+
+  .skills-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-2xl);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-2xl);
+  }
+
+  .summary-item {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .summary-item h4 {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-sm) 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .summary-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    margin: 0;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .skills-detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .skills-summary {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = document.querySelectorAll('.skill-category-card');
+  const fills = document.querySelectorAll('.proficiency-fill');
+  const summaryItems = document.querySelectorAll('.summary-item');
+
+  // Animate cards
+  cards.forEach((card, index) => {
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+  });
+
+  // Animate progress bars on scroll
+  fills.forEach((fill) => {
+    const finalWidth = fill.style.getPropertyValue('--final-width');
+    
+    gsap.fromTo(
+      fill,
+      { width: '0%' },
+      {
+        width: finalWidth,
+        duration: 1.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: fill,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+  });
+
+  // Animate summary items
+  summaryItems.forEach((item, index) => {
+    gsap.fromTo(
+      item,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: index * 0.1,
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%',
+          markers: false,
+        },
+      }
+    );
+  });
+</script>
